@@ -4,12 +4,14 @@
 <head>
   <title>个人简历</title>
   <link rel="stylesheet" href="./a.css">
-
+  <link rel="stylesheet" href="./loading.css">
 </style>
 </head>
 
 <body>
-  
+  <div id="siteWelcome" class="site-welcome active">
+    <div class="circle"></div>
+  </div>
   <div class="navTop">
       <div class="navTop-wrapper clearfix">
       <a class="logo" href="#" alt="logo">
@@ -142,4 +144,7 @@
       </div>      
     </div>
   </section>
+  <script>
+    siteWelcome.classList.remove('active');
+  </script>
 </body>

@@ -1,0 +1,49 @@
+.site-welcome{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    justify-content: center;
+    align-items: center;
+    background: #888888;
+    z-index: 100;
+    display: none;
+}
+
+.site-welcome.active{
+    display: flex;
+}
+
+.circle{
+  width: 200px;
+  height: 200px;
+  position:relative;
+}
+
+.circle::before,
+.circle::after{
+  content:"";
+  background:black;
+  border-radius:50%;
+  position:absolute;
+  left:0;
+  top:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  animation: s 3s linear infinite;
+}
+.circle::after{
+  animation-delay: 1s;
+}
+
+@keyframes s{
+  0%{
+    width:0px;height:0px;opacity:1;
+  }
+  100%{
+    width:100px;height:100px; opacity:0;
+  }
+}
