@@ -12,16 +12,23 @@
   <div id="siteWelcome" class="site-welcome active">
     <div class="circle"></div>
   </div>
-  <div class="navTop">
-      <div class="navTop-wrapper clearfix">
+  <div id="navTop" class="navTop">
+    <div class="navTop-wrapper clearfix">
       <a class="logo" href="#" alt="logo">
         <span class="rs">RS</span><span class="card">card</span>
       </a>
-      <nav>
+      <nav class="menu">
         <ul class="clearfix">
-          <li><a href="#">关于</a></li>
-          <li><a href="#">技能</a></li>
-          <li><a href="#">作品</a></li>
+          <li class="menuTigger">
+              <a href="#siteAbout" >关于</a>
+              <ul class="submenu">
+                <li>丁凯</li>
+                <li>哈哈</li>
+                <li>你好</li>
+              </ul>
+          </li>
+          <li><a href="#siteSkills">技能</a></li>
+          <li><a href="#siteWorks">作品</a></li>
           <li><a href="#">博客</a></li>
           <li><a href="#">联系方式</a></li>
           <li><a href="#">其他</a></li>
@@ -33,7 +40,7 @@
     <div class="mask"></div>
   </div>
   <main>
-    <div class="userCard clearfix">
+    <div data-x id="siteAbout" class="userCard">
       <div class="pictureAndText clearfix">
         <div class="picture">
           <img src="./img/2.jpg" alt="头像"> 
@@ -78,7 +85,7 @@
       技能:前端开发
     </p>
   </main>
-  <section class="skills">
+  <section data-x id="siteSkills" class="skills">
     <h2>技能</h2>
     <ol class="clearfix">
       <li>HTML5&CSS3
@@ -108,7 +115,7 @@
       </li>
     </ol>
   </section>
-  <section class="work">
+  <section data-x class="work" id="siteWorks">
     <h2>作品集</h2>
     <nav>
       <ol id="clearfix">
@@ -145,6 +152,93 @@
     </div>
   </section>
   <script>
-    siteWelcome.classList.remove('active');
+    
+     setTimeout(function(){
+        siteWelcome.classList.remove('active');
+     },2000)
+
+     let specialTags = document.querySelectorAll('[data-x]')
+    for(let i=0;i<specialTags.length;i++){
+      specialTags[i].classList.add('offset')
+    }
+
+
+     window.onscroll = function(xxxx){
+        if(window.scrollY>0){
+          navTop.classList.add('sticky')
+        }else{
+          navTop.classList.remove('sticky')
+        }
+        console.log(window.scrollY)
+        let specialTags = document.querySelectorAll('[data-x]')
+        let minIndex = 0
+        for(let i = 1;i<specialTags.length;i++){
+          console.log(i)
+          console.log(specialTags[i].offsetTop)
+
+         
+          if(Math.abs(specialTags[i].offsetTop-window.scrollY) < Math.abs(specialTags[minIndex].offsetTop-window.scrollY)){
+            minIndex = i;
+            console.log(minIndex)
+          }
+          for(let i=0;i < specialTags.length;i++){
+            specialTags[i].classList.remove('active')
+          }
+          specialTags[minIndex].classList.add('active')
+          let id = specialTags[minIndex].id
+          console.log(id)
+          let a = document.querySelector('a[href="#'+ id + '"]')
+          let li = a.parentNode
+          let brothersAndMe = li.parentNode.children
+          for(let i=0; i<brothersAndMe.length;i++){
+            brothersAndMe[i].classList.remove('highlight')
+          }
+          li.classList.add('highlight')
+        }
+     }
+
+
+      let liTags = document.getElementsByClassName('menuTigger')
+      for(let i=0;i<liTags.length;i++){
+        liTags[i].onmouseenter = function(x){
+          x.currentTarget.classList.add('active')
+        }
+
+        liTags[i].onmouseleave = function(x){
+          x.currentTarget.classList.remove('active')
+        }
+
+
+      }
+
+      let aTags = document.querySelectorAll('nav.menu > ul > li > a')
+      for(let i=0; i<aTags.length;i++){
+        aTags[i].onclick = function(x){
+          x.preventDefault()
+          let a = x.currentTarget
+          let href = a.getAttribute('href')
+          let element = document.querySelector(href)
+          let top = element.offsetTop
+          window.scrollTo(0,top-100)
+
+          let n = 20
+          let duration = 500/n
+          let currentTop =window.scrollY
+          let targetTop = top - 80
+          let distance = (targetTop - currentTop)/n
+          let i = 0
+
+          let id = setInterval(()=>{
+            if(i===n){
+              window.clearInterval(id)
+              return
+            }
+            i = i + 1
+            window.scrollTo(0,currentTop + distance * i)
+          },duration)
+
+        }
+      }
+
   </script>
 </body>

@@ -12,17 +12,46 @@ a{
   text-decoration: none;
 }
 
+[data-x].active{
+  /* outline: 10px solid red; */
+}
+
+[data-x].offset{
+  transform: translateY(150px);
+}
+[data-x]{
+  transform: translateY(0);
+  transition: all 0.5s;
+}
+
+[data-x].offset{
+  transform: translateY(0);
+  transition:all 0.5s;
+}
+
 .navTop{
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding:20px 0;
   
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  transition: all 1s;
+  color: #9a9da2;
+}
+
+.navTop .logo{
+
+}
+.navTop.sticky{
+  background: white;
+  padding: 10px 0;
+  box-shadow: 0 0  10px rgba(0,0,0, 25);
+  color: green;
+  z-index: 100;
 }
 .navTop .navTop-wrapper{
-  padding: 0 16px  16px;
+  padding: 0 16px;
 }
 .navTop  nav{
   float:right;
@@ -45,24 +74,80 @@ a{
   border-bottom: 3px solid transparent;
   padding-bottom: 3px;
   padding-top: 7px;
+  position: relative;
 } 
 
 .navTop  nav > ul > li > a{
   text-decoration: none;
   font-size: 12px;
-  color: #b7b7b7;
+  color: inherit;
   font-weight: bold;
+  position: relative;
 }
 
-.navTop  nav > ul >li:hover{
-  border-bottom: 3px solid #e06567;
+.navTop  nav > ul >li>a:hover{
+  /* border-bottom: 3px solid #e06567; */
+}
+.navTop  nav > ul >li.active >a::after,
+.navTop  nav > ul >li.highlight >a::after{
+  content: '';
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #e06567;
+  height: 3px;
+  animation: menuSlide 1s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+@keyframes menuSlide{
+  0%{
+    width: 0%;
+  }
+  100%{
+    width: 100%;
+  }
 }
 
+@keyframes submenuSlide{
+  0%{
+    margin-right:100%;
+  }
+  100%{
+    margin-right:0%;
+  }
+}
+.navTop .submenu{
+  display: none; 
+  position: absolute;
+  right: 0;
+  top: 100%;
+  color: #3d4451;
+  list-style: none;
+  background: white;
+  
+}
+
+.navTop li.active > .submenu{
+  display: block;
+  animation: submenuSlide .2s;
+}
+
+.navTop .submenu > li{
+  white-space: nowrap;
+  padding: 5px 10px;
+}
+
+.navTop .logo{
+  margin-top: 15px;
+}
 .navTop  .logo > .rs{
   font-family: "Arial Black";
   font-size: 24px;
   color: #e6686a;
   margin-right: 4px;
+  line-height: 26px;
 }
 .navTop  .logo > .card{
   font-size: 24px;
